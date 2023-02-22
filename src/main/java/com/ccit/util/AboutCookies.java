@@ -15,7 +15,6 @@ public class AboutCookies {
         AboutCookies.request = request;
         AboutCookies.response = response;
     }
-
     public String getCookie(String name) {
 
         Cookie[] strcookie = request.getCookies();//获取cookie字符串

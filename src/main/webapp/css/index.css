@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    text-decoration-color: red;
+    background-image: linear-gradient(to right, orange, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 30px;
+    /*作者：iced_lemonade*/
+    /*链接：https://www.jianshu.com/p/3a5bbfbf5957*/
+    /*来源：简书*/
+    /*著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。*/
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+h2, h3, h4, h5, h6 {
+    line-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+#app{
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    margin: 0 auto;
+    width: 97%;
+    height:100%;
+    /*background-color: blue;*/
+}
+.app {
+    /*相对定位*/
+    position:relative;
+    top:10px;
+    margin: 0 auto;
+    min-width: 800px;
+    height:400px;
+    background-image: url("../img/img.png");
+    z-index: 100;
+    /*overflow:auto;*/
+}
+
+/*//清除 overflow: auto;的滚动条*/
+/*.app::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
+.h{
+    background-size:30% 50%;
+    background-image: url("https://ts1.cn.mm.bing.net/th/id/R-C.f4b69fd86c183d7b12aec462c8b2f931?rik=0pi7vPWxpU28Ug&riu=http%3a%2f%2fimg.zcool.cn%2fcommunity%2f019c1758f7545ea8012049ef6a118d.gif&ehk=wJw0ODXpqIFVaVAG1zKONtuy2amASftfigieTl4bsSE%3d&risl=&pid=ImgRaw&r=0");
+}
+
+.box {
+    position: relative;
+    /*//绝对*/
+    width: 100%;
+    height: 100%;
+    /*background-color: aqua;*/
+    overflow: auto;
+    /*overflow: scroll;*/
+}
+
+.box::-webkit-scrollbar {
+    display: none;
+}
+
+.box .top-select {
+    border-radius: 5px 20px 20px 5px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    width: 510px;
+    height: 60px;
+}
+
+.box .top-select input {
+    text-decoration: none;
+    text-decoration-color: red;
+    background-image: linear-gradient(to right, orange, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 30px;
+    border-radius: 20px 0 0 20px;
+    position: relative;
+    left: 20px;
+    height: 55px;
+    width: 300px;
+    border-color: red;
+}
+
+.box .top-select .but {
+    border-radius: 0 20px 20px 0;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    height: 56px;
+    width: 150px;
+}
+
+/*.swiper-slide .left{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    position: absolute;*/
+/*        min-height: 30%;*/
+/*        min-width: 30%;*/
+/*}*/
+/*.swiper .swiper-wrapper .swiper-slide .left {*/
+/*    !* 设置最大高度限制 *!*/
+/*    resize: both; !* 设置元素的宽度和高度均可调整 *!*/
+/*    overflow: hidden; !* 设置溢出属性值为auto *!*/
+/*    position: absolute;*/
+/*    background-size: 900px, 1000px;*/
+/*    background-image: url("https://pic3.zhimg.com/v2-58d652598269710fa67ec8d1c88d8f03_r.jpg?source=1940ef5c");*/
+/*    word-wrap: break-word;*/
+/*    word-break: break-all;*/
+/*    !*top:5px;*!*/
+/*    !*line-height: 50px;*!*/
+/*    overflow: hidden;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+/*.swiper .swiper-wrapper .swiper-slide .left .left-left {*/
+/*    !*!*相对定位*!*!*/
+/*    position: relative;*/
+/*    margin: 0 auto;*/
+/*    width: 60%;*/
+/*    height: 90%;*/
+/*    !*z-index:100;*!*/
+/*}*/
+
+/*iframe {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+/*.left .lefts {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+.under {
+    position: relative; /*相对*/
+    top: 100px;
+    width: 99%;
+    height: 100%;
+    left: 1%;
+    /*border-style: solid;*/
+    /*border-color: crimson;*/
+    /*border-width: thick;*/
+    /*background-color: blue;*/
+    /*overflow: auto;*/
+    /*overflow: scroll;*/
+}
+
+/*//清除 overflow: auto;的滚动条*/
+.under::-webkit-scrollbar {
+    display: none;
+}
+
+/**/
+.under .under-under {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /*word-wrap:break-word;*/
+    /*word-break:break-all;*/
+    border-style: solid;
+    border-color: crimson;
+    border-width: thin;
+    /*background-color: aqua;*/
+    /*z-index: -100;*/
+    overflow: auto;
+    /*overflow: scroll;*/
+}
+
+/*.under-under::-webkit-scrollbar{*/
+/*    display: none;*/
+/*}*/
+
+.under .shops {
+    width: 150px;
+    height: 300px;
+    float: left;
+    /*word-wrap:break-word;*/
+    /*word-break:break-all;*/
+    margin: 20px 5px 20px 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: thick;
+
+}
+
+.under .shops .img {
+    position: relative;
+    top: 2px;
+    left: 25px;
+    width: 100px;
+    height: 100px;
+    /*word-wrap:break-word;*/
+    /*word-break:break-all;*/
+}
+
+.under .shops .img img {
+    width: 100%;
+    height: 100%;
+}
+
+.under .shops .shops-mesg {
+    position: relative;
+    top: 55px;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.under .shops .shops-mesg .goods_name {
+    position: relative;
+    /*top: 55px;*/
+    width: 140px;
+    height: 20px;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: crimson;
+    white-space: nowrap;
+}
+
+.under .shops .shops-mesg .goods_detail_content, .under .shops .shops-mesg a {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    font-size: 5px;
+    text-overflow: ellipsis;
+    /*//溢出省略*/
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.under .shops .shops-mesg .goods_name:hover {
+    text-overflow: inherit;
+    overflow: visible;
+}

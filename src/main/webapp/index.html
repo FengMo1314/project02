@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" href="./swiper/swiper.min.css">
+    <style>
+        .swiper {
+            border-radius: 10px;
+            border-style: solid;
+            border-color: crimson;
+            border-width: thick;
+            width:40%;
+            height:300px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper .swiper-button-next, .swiper .swiper-button-prev {
+            height: 50px;
+            width: 50px;
+            color: white;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+<!--    <template>-->
+<!--        <el-button type="text">点击打开 Message Box</el-button>-->
+<!--    </template>-->
+    <div class="h">
+        <el-menu
+                :default-active="activeIndex2"
+                class="el-menu-demo"
+                mode="horizontal"
+                @select="handleSelect"
+                background-color="#545c64"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+            <el-menu-item index="1">
+                    <a :href="this.hef">登录注册</a>
+<!--                    <el-button type="text" @click="open()"> </el-button>-->
+            </el-menu-item>
+            <el-submenu index="2">
+                <template slot="title"><a>和我相关</a></template>
+                <el-menu-item index="2-1">
+                    <a href="/personalCenter.html">个人中心</a>
+                </el-menu-item>
+            </el-submenu>
+            <el-menu-item index="3"><a href=""> <el-avatar :src="this.path"></el-avatar></a></el-menu-item>
+            <el-menu-item index="4"><a href="./LogoutServlet">退出登录</a></el-menu-item>
+        </el-menu>
+<!--        -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://ts3.cn.mm.bing.net/th?id=OIP-C.owpbNjuu23xkyc4yrX9BDQHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2">
+                </div>
+                <div class="swiper-slide">
+                    <img alt=""
+                         src="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/plp/launch/220906/phones/huawei-mate-xs2.png">
+                </div>
+                <div class="swiper-slide">
+                    <img alt=""
+                         src="https://ts4.cn.mm.bing.net/th?id=OSC.TOOL3C25B9799A78864DF222B93658E9CC714CC6767D25CF4DCDD61185CEA73312FC&w=2000&h=510&o=6&dpr=1.5&pid=Orion">
+                </div>
+
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-next swiper-button-white"></div> <!-- 白色 -->
+                <div class="swiper-button-next swiper-button-black"></div> <!-- 黑色 -->
+                <!-- 如果需要滚动条 -->
+                <!-- <div class="swiper-scrollbar"></div> -->
+            </div>
+        </div>
+<!--        -->
+    </div>
+    <div class="app">
+        <div class="box">
+            <div class="top">
+                <div class="top-select">
+                    <form action="#" method="get">
+                        <input id="names" type="text">
+                        <button class="but" onclick="clicked()">
+                            <a>搜</a>
+                            <a>索</a>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!--            -->
+
+            <!--            -->
+            <div class="under">
+                <div class="under-under"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="./swiper/jquery.js"></script>
+<script src="./swiper/swiper.jquery.min.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/index.js"></script>
+<script src="./js/vue.js"></script>
+<script src="./element-ui/lib/index.js"></script>
+<script src="./js/until.js"></script>
+<script>
+    // var mySwiper = new Swiper('.swiper', {
+        // loop: true, // 循环模式选项
+    //     autoplay: true,//自动
+    //     freeMode: true,//
+    //     mousewheel: true,
+    //     fadeEffect: {
+    //         crossFade: true,
+    //     }
+    // })
+    //
+    //     coverflowEffect: {
+    //         rotate: 30,
+    //         stretch: 10,
+    //         depth: 60,
+    //         modifier: 2,
+    //         slideShadows: true
+    //     },
+    // })
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                activeIndex: '1',
+                activeIndex2: '1',
+                hef: "",
+                path:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            };
+        },
+        mounted() {
+            this.handleSelect()
+            this.isLou()
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            isLou() {
+                var name = getCookie("username");
+                var path=getCookie("imgpath");
+                if (name == "") {
+                    this.hef = "./loginregist.html";
+                }  else {
+                    if(path!="") {
+                        this.path = path;
+                    }
+                this.open()
+                 }
+
+            },
+            open() {
+                this.$alert('我们又见面了,您已登陆过', '欢迎归来', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                        this.$message({
+                            type: 'info',
+                            message: `action: ${action}`
+                        });
+                    }
+                });
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

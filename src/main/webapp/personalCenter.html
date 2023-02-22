@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <!--表格-->
+    <template>
+        <el-table
+                :data="users"
+                style="width: 100%"
+                max-height="600">
+            <el-table-column
+                    fixed
+                    prop="id"
+                    label="id"
+                    width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="userName"
+                    label="用户名"
+                    width="300">
+            </el-table-column>
+            <el-table-column
+                    prop="passWord"
+                    label="密码"
+                    width="300">
+            </el-table-column>
+            <el-table-column label="头像">
+                <template slot-scope="scope">
+                    <el-popover placement="top-start" title="" trigger="hover">
+                        <img :src="getImgUrl(scope.row.filename)" alt="" style="width: 250px;height: 250px">
+                        <img slot="reference" :src="getImgUrl(scope.row.filename)"
+                             style="width: 100px;height: 100px">
+                    </el-popover>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    fixed="right"
+                    label="操作"
+                    width="200">
+                <template slot-scope="scope">
+                    <el-button
+                            @click="handleEdit(scope.row)"
+                            type="text"
+                            size="big">
+                        编辑
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <!--添加数据对话框表单-->
+        <el-dialog
+                title="编辑信息"
+                :visible.sync="dialogVisible"
+                width="30%"
+        >
+            <el-form ref="form" :model="user" label-width="80px">
+                <el-form-item label="id">
+                    <el-input v-model="user.id" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="用户名">
+                    <el-input v-model="user.userName"></el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                    <el-input v-model="user.passWord"></el-input>
+                </el-form-item>
+                <el-form-item label="头像">
+                    <!-- 图片预览区域 -->
+                    <img v-if="previewUrl" :src="previewUrl"  width=100px height=100px/>
+                    <!--文件选择-->
+                    <input type="file" ref="fileInput" id="fileInput" @change="previewImage" style="display: none;">
+                    <el-button type="primary" @click="selectFile" class="ttt">上传头像</el-button>
+
+                </el-form-item>
+
+
+
+                <el-form-item>
+                    <el-button type="primary" @click="update">提交</el-button>
+                    <el-button @click="selectUser();dialogVisible = false">取消</el-button>
+                </el-form-item>
+            </el-form>
+
+        </el-dialog>
+    </template>
+</div>
+</body>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script>
+    // import upload from "./element-ui/packages/upload/src/ajax";
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                dialogVisible: false,
+                users: [],
+                user: {
+                    // name: "",//session
+                    id: "",
+                    userName: "",
+                    passWord: "",
+                    filename: "",
+                },
+                previewUrl: '',
+                upload:''
+            }
+        },
+        mounted() {
+            this.selectUser()
+        },
+        methods: {
+            // getSession() {
+            //     var xhr = new XMLHttpRequest();
+            //     xhr.open('get', '/get-uname');
+            //     xhr.onload = function () {
+            //         if (xhr.status === 200) {
+            //             // 请求成功
+            //             var sessionData = xhr.responseText;
+            //             // 在这里使用 sessionData
+            //             this.name = sessionData
+            //             this.handleEdit(this.name)
+            //             console.log(sessionData)
+            //         }
+            //     }.bind(this);
+            //     xhr.send();
+            // },
+            // 选择文件时触发的方法
+            previewImage() {
+                // 获取文件
+                const file = this.$refs.fileInput.files[0]
+
+                // 创建文件读取器
+                const reader = new FileReader()
+                // 读取文件
+                reader.readAsDataURL(file)
+                console.log(file.name)
+
+                // 读取完成时触发的方法
+                reader.onload = () => {
+                    // 将读取到的文件转化为图片地址并设置到预览区域显示
+                    this.previewUrl = reader.result
+
+                    let formData = new FormData();
+                    this.filename=file.name
+                    console.log(this.filename)
+                    formData.append('file',file)
+                    axios.post('ServletUpload',formData,{
+                        headers:{"Content-Type":"multipart/form-data"}
+                    }).then(res=>{
+                        console.log(res);
+                        console.log(res.status)
+                        console.log(res.data)
+                        this.upload=res.data;
+                    })
+                }
+            },
+            selectFile() {
+                // 获取文件输入框元素
+                const fileInput = document.getElementById('fileInput');
+                // 触发文件选择对话框
+                fileInput.click();
+            },
+            // 查询用户
+            selectUser() {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/getPersonal",
+                }).then(resp => {
+                    //设置表格数据
+                    this.users = resp.data; // {rows:[],totalCount:100}
+                })
+            },
+            // 更新数据
+            update() {
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/update",
+                    data: this.user,
+                    params:{
+                        upload:this.upload
+                    }
+                }).then((resp) => {
+                    if (resp.data == "1") {
+                        this.$message.error('id: ' + this.user.id + ' 修改失败');
+                    } else if (resp.data == "2") {
+                        this.dialogVisible = false;
+                        this.selectUser();
+                        this.$message({
+                            message: 'id: ' + this.user.id + ' 修改成功',
+                            type: 'success'
+                        });
+                    }
+
+                })
+            },
+            getImgUrl(img) {
+                // console.log(img)
+                return "upload/" + img;
+            },
+            handleEdit(data) {
+                this.user = data;
+                this.dialogVisible = true;
+                this.previewUrl="upload/"+this.user.filename
+            },
+        },
+    })
+
+</script>
+</html>
